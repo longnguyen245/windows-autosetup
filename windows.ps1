@@ -11,6 +11,8 @@ $evkeyConfigFile = $parentDirectory + "\config\evkey\setting.ini"
 $evKeyexeFile = $evkeyPathFolder + "\EVKey64.exe"
 $powershellFnmEnv = "fnm env --use-on-cd | Out-String | Invoke-Expression"
 $bashAndZshFnmEnv = 'eval "$(fnm env --use-on-cd)"'
+$pathConfigWindowTerminal = "$HOME\scoop\apps\windows-terminal\current\settings"
+$pathFileConfigWindowTerminal = $parentDirectory + "\config\windowsTerminal\settings.json"
 
 # Functions
 function Write-Start {
@@ -30,8 +32,14 @@ Function setEnvFnm {
     
     switch ($shell) {
         "ps1" { SetEnvToShell -name 'Powershell' -shellPath $PROFILE -envCode $powershellFnmEnv }
-        "bash" { SetEnvToShell -name 'Bash' -shellPath "$HOME\.bashrc" -envCode $bashAndZshFnmEnv }
-        "zsh" { SetEnvToShell -name 'Zsh' -shellPath "$HOME\.zshrc" -envCode $bashAndZshFnmEnv }
+        "bash" { 
+            SetEnvToShell -name 'Bash' -shellPath "$HOME\.bashrc" -envCode $bashAndZshFnmEnv 
+            dos2unix.exe -r -v -f -D utf8 "$HOME\.bashrc" 
+        }
+        "zsh" {
+            SetEnvToShell -name 'Zsh' -shellPath "$HOME\.zshrc" -envCode $bashAndZshFnmEnv
+            dos2unix.exe -r -v -f -D utf8 "$HOME\.bashrc"  
+        }
         Default {}
     }
 }
@@ -87,11 +95,11 @@ Write-Done
 
 Write-Start -msg "Installing Scoop's packages"
 scoop install firefox googlechrome <# Web browser #> 
-scoop install extras/windows-terminal <# Tool #>
+scoop install extras/windows-terminal main/dos2unix <# Tool #>
 scoop install vscode versions/vscode-insiders extras/vscodium main/fnm extras/sublime-text postman extras/heidisql <# Coding #>
-# neovim vscode gcc nodejs openjdk python
 scoop install vcredist-aio python <# Runtime lib #> 
 # Start-Process -Wait powershell -verb runas -ArgumentList "scoop install vcredist-aio"
+scoop install extras/telegram <# Apps #> 
 Write-Done
 
 Write-Start -msg "Set Env shell"
@@ -171,6 +179,13 @@ Else {
 }
 Write-Done
 
+Write-Start -msg "Setup config Windows terminal"
+If (test-path "$pathConfigWindowTerminal\settings.json") {
+}
+else {
+    Copy-Item $pathFileConfigWindowTerminal -Destination $pathConfigWindowTerminal -Force
+}
+Write-Done
 
 Write-Start -msg "Enable Virtualization"
 Start-Process -Wait powershell -verb runas -ArgumentList @"
