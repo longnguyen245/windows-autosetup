@@ -2,17 +2,16 @@
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 # Variables
-$scriptPath = $MyInvocation.MyCommand.Path
-$parentDirectory = [System.IO.Path]::GetDirectoryName($scriptPath)
+$pathRoot = $PSScriptRoot 
 $evkeyLinkDownload = "https://github.com/lamquangminh/EVKey/releases/download/Release/EVKey.zip"
 $evkeyPathFile = "$HOME\Desktop\evkey.zip"
 $evkeyPathFolder = "$HOME\PortableApps\evkey"
-$evkeyConfigFile = $parentDirectory + "\config\evkey\setting.ini"
+$evkeyConfigFile = $pathRoot + "\config\evkey\setting.ini"
 $evKeyexeFile = $evkeyPathFolder + "\EVKey64.exe"
 $powershellFnmEnv = "fnm env --use-on-cd | Out-String | Invoke-Expression"
 $bashAndZshFnmEnv = 'eval "$(fnm env --use-on-cd)"'
 $pathConfigWindowTerminal = "$HOME\scoop\apps\windows-terminal\current\settings"
-$pathFileConfigWindowTerminal = $parentDirectory + "\config\windowsTerminal\settings.json"
+$pathFileConfigWindowTerminal = $pathRoot + "\config\windowsTerminal\settings.json"
 
 # Functions
 function Write-Start {
@@ -86,7 +85,7 @@ Write-Done
 Write-Start -msg "Initializing Scoop..."
 scoop install git
 scoop bucket add extras
-# scoop bucket add nerd-fonts
+scoop bucket add nerd-fonts
 scoop bucket add java
 scoop bucket add main
 scoop bucket add versions
@@ -99,7 +98,12 @@ scoop install extras/windows-terminal main/dos2unix <# Tool #>
 scoop install vscode versions/vscode-insiders extras/vscodium main/fnm extras/sublime-text postman extras/heidisql <# Coding #>
 scoop install vcredist-aio python <# Runtime lib #> 
 # Start-Process -Wait powershell -verb runas -ArgumentList "scoop install vcredist-aio"
-scoop install extras/telegram <# Apps #> 
+scoop install extras/telegram extras/neatdownloadmanager <# Apps #> 
+Write-Done
+
+Write-Start -msg "Installing Fonts"
+scoop install nerd-fonts/FiraCode-NF
+Start-Process -Wait powershell -verb runas -ArgumentList "$pathRoot\psfiles\installFonts.ps1" 
 Write-Done
 
 Write-Start -msg "Set Env shell"
