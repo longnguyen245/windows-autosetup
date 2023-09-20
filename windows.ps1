@@ -94,7 +94,7 @@ Write-Done
 
 Write-Start -msg "Installing Scoop's packages"
 scoop install firefox googlechrome <# Web browser #> 
-scoop install extras/windows-terminal main/dos2unix <# Tool #>
+scoop install extras/windows-terminal main/dos2unix main/scrcpy main/adb <# Tool #>
 scoop install vscode versions/vscode-insiders extras/vscodium main/fnm extras/sublime-text postman extras/heidisql <# Coding #>
 scoop install vcredist-aio python <# Runtime lib #> 
 # Start-Process -Wait powershell -verb runas -ArgumentList "scoop install vcredist-aio"
