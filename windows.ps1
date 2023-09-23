@@ -13,6 +13,7 @@ $bashAndZshFnmEnv = 'eval "$(fnm env --use-on-cd)"'
 $pathConfigWindowTerminal = "$HOME\scoop\apps\windows-terminal\current\settings"
 $pathFileConfigWindowTerminal = $pathRoot + "\config\windowsTerminal\settings.json"
 
+
 # Functions
 function Write-Start {
     param (
@@ -67,12 +68,47 @@ Function SetEnvToShell {
     }
 }
 
-# Start
-Start-Process -Wait powershell -verb runas -ArgumentList "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0"
-                                        
-#
-Write-Start -msg "Installing Scoop"
+Function InstallFontFromFile {
+    $fontPath = Split-Path -Path $PSScriptRoot -Parent
 
+    $SourceDir = "$fontPath\"
+    $Source = "$fontPath\*"
+    $Destination = (New-Object -ComObject Shell.Application).Namespace(0x14)
+    $TempFolder = "C:\Windows\Temp\Fonts"
+
+    # Create the source directory if it doesn't already exist
+    New-Item -ItemType Directory -Force -Path $SourceDir
+
+    New-Item $TempFolder -Type Directory -Force | Out-Null
+
+    Get-ChildItem -Path $Source -Include '*.ttf', '*.ttc', '*.otf' -Recurse | ForEach {
+        If (-not(Test-Path "C:\Windows\Fonts\$($_.Name)")) {
+
+            $Font = "$TempFolder\$($_.Name)"
+        
+            # Copy font to local temporary folder
+            Copy-Item $($_.FullName) -Destination $TempFolder -Force
+        
+            # Install font
+            $Destination.CopyHere($Font, 0x10) 
+
+            # Delete temporary copy of font
+            Remove-Item $Font -Force
+        }
+    }
+}
+
+# # Start
+Start-Process -Wait powershell -verb runas -ArgumentList "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0"
+ 
+                                       
+#
+Write-Start -msg "Installing Chocolatey"
+Start-Process -Wait powershell -verb runas -ArgumentList "
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
+Write-Done
+
+Write-Start -msg "Installing Scoop"
 if (Get-Command scoop -errorAction SilentlyContinue) {
     Write-Warning "Scoop already installed"
 }
@@ -93,7 +129,7 @@ scoop update
 Write-Done
 
 Write-Start -msg "Installing Scoop's packages"
-scoop install firefox googlechrome <# Web browser #> 
+# scoop install firefox googlechrome <# Web browser #> 
 scoop install extras/windows-terminal main/dos2unix main/scrcpy main/adb <# Tool #>
 scoop install vscode versions/vscode-insiders extras/vscodium main/fnm extras/sublime-text postman extras/heidisql <# Coding #>
 scoop install vcredist-aio python <# Runtime lib #> 
@@ -101,9 +137,13 @@ scoop install vcredist-aio python <# Runtime lib #>
 scoop install extras/telegram extras/neatdownloadmanager <# Apps #> 
 Write-Done
 
+Write-Start -msg "Installing Chocolatey's packages"
+Start-Process -Wait powershell -verb runas -ArgumentList "choco install googlechrome brave firefox -y"
+Write-Done
+
 Write-Start -msg "Installing Fonts"
 scoop install nerd-fonts/FiraCode-NF
-Start-Process -Wait powershell -verb runas -ArgumentList "$pathRoot\psfiles\installFonts.ps1" 
+InstallFontFromFile
 Write-Done
 
 Write-Start -msg "Set Env shell"
