@@ -1,5 +1,5 @@
 # Run this command first and then run the ps1 file in powershell
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+# Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 
 # Variables
 $pathRoot = $PSScriptRoot 
@@ -132,8 +132,8 @@ Write-Start -msg "Installing Scoop's packages"
 # scoop install firefox googlechrome <# Web browser #> 
 scoop install extras/windows-terminal main/dos2unix main/scrcpy main/adb <# Tool #>
 scoop install vscode versions/vscode-insiders extras/vscodium main/fnm extras/sublime-text postman extras/heidisql <# Coding #>
-scoop install vcredist-aio python <# Runtime lib #> 
-# Start-Process -Wait powershell -verb runas -ArgumentList "scoop install vcredist-aio"
+scoop install python <# Runtime lib #> 
+Start-Process -Wait powershell -verb runas -ArgumentList "scoop install vcredist-aio"
 scoop install extras/telegram extras/neatdownloadmanager <# Apps #> 
 Write-Done
 
