@@ -98,6 +98,9 @@ Function InstallFontFromFile {
     }
 }
 
+
+Exit-PSHostProcess
+
 # # Start
 Start-Process -Wait powershell -verb runas -ArgumentList "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0"
  
@@ -142,7 +145,7 @@ Start-Process -Wait powershell -verb runas -ArgumentList "choco install googlech
 Write-Done
 
 Write-Start -msg "Installing Fonts"
-scoop install nerd-fonts/FiraCode-NF
+scoop install nerd-fonts/FiraCode-NF firacode
 InstallFontFromFile
 Write-Done
 
@@ -194,6 +197,10 @@ Write-Done
 
 Write-Start -msg "Add 7zip as a context menu option"
 reg import "$HOME\scoop\apps\7zip\current\install-context.reg"
+Write-Done
+
+Write-Start -msg "Enable UTC Time"
+Start-Process -Wait powershell -verb runas -ArgumentList "reg import '$PSScriptRoot\assets\regs\WinUTCOn.reg'"
 Write-Done
 
 Write-Start -msg "Installing Evkey"
