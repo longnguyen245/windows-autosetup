@@ -133,7 +133,7 @@ Write-Done
 
 Write-Start -msg "Installing Scoop's packages"
 # scoop install firefox googlechrome <# Web browser #> 
-scoop install extras/windows-terminal main/dos2unix main/scrcpy main/adb <# Tool #>
+scoop install extras/windows-terminal main/dos2unix main/scrcpy main/adb gsudo <# Tool #>
 scoop install vscode versions/vscode-insiders extras/vscodium main/fnm extras/sublime-text postman extras/heidisql <# Coding #>
 scoop install python <# Runtime lib #> 
 Start-Process -Wait powershell -verb runas -ArgumentList "scoop install vcredist-aio"
@@ -145,7 +145,7 @@ Start-Process -Wait powershell -verb runas -ArgumentList "choco install googlech
 Write-Done
 
 Write-Start -msg "Installing Fonts"
-scoop install nerd-fonts/FiraCode-NF firacode
+scoop install nerd-fonts/FiraCode-NF nerd-fonts/Hack-NF firacode 
 InstallFontFromFile
 Write-Done
 
