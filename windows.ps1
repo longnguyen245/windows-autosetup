@@ -1,5 +1,6 @@
 # Run this command first and then run the ps1 file in powershell
 # Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+# Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
 # Variables
 $pathRoot = $PSScriptRoot 
@@ -133,8 +134,11 @@ Write-Done
 
 Write-Start -msg "Installing Scoop's packages"
 # scoop install firefox googlechrome <# Web browser #> 
-scoop install extras/windows-terminal main/dos2unix main/scrcpy main/adb gsudo <# Tool #>
-scoop install vscode versions/vscode-insiders extras/vscodium main/fnm extras/sublime-text postman extras/heidisql <# Coding #>
+scoop install main/dos2unix main/scrcpy main/adb gsudo <# Tool #>
+If (Test-Path !$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe) {
+    scoop install extras/windows-terminal
+}
+scoop install vscode versions/vscode-insiders extras/vscodium main/fnm extras/sublime-text postman extras/heidisql extras/sourcetree <# Coding #>
 scoop install python <# Runtime lib #> 
 Start-Process -Wait powershell -verb runas -ArgumentList "scoop install vcredist-aio"
 scoop install extras/telegram extras/neatdownloadmanager <# Apps #> 
@@ -231,10 +235,20 @@ Else {
 Write-Done
 
 Write-Start -msg "Setup config Windows terminal"
-If (test-path "$pathConfigWindowTerminal\settings.json") {
+If (Test-Path $env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe) {
+    If (test-path "$pathConfigWindowTerminal\settings.json") {
+    }
+    Else {
+        Copy-Item $pathFileConfigWindowTerminal -Destination $env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState -Force
+    }
 }
-else {
-    Copy-Item $pathFileConfigWindowTerminal -Destination $pathConfigWindowTerminal -Force
+Else {
+
+    If (test-path "$pathConfigWindowTerminal\settings.json") {
+    }
+    Else {
+        Copy-Item $pathFileConfigWindowTerminal -Destination $pathConfigWindowTerminal -Force
+    }
 }
 Write-Done
 
