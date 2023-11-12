@@ -165,7 +165,7 @@ Write-Done
 
 Write-Start -msg "Installing NodeJS in fnm"
 Start-Process -Wait powershell -verb runas -ArgumentList "fnm install 18"
-Start-Process -Wait powershell -verb runas -ArgumentList "fnm use 18"
+Start-Process -Wait powershell -verb runas -ArgumentList "fnm use 20"
 Write-Done
 
 Write-Start -msg "Installing Modules global Nodejs"
