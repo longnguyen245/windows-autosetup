@@ -149,14 +149,16 @@ Start-Process -Wait powershell -verb runas -ArgumentList "choco install googlech
 Write-Done
 
 Write-Start -msg "Installing Fonts"
-scoop install nerd-fonts/FiraCode-NF nerd-fonts/Hack-NF firacode 
-InstallFontFromFile
+scoop install nerd-fonts/FiraCode-NF nerd-fonts/Hack-NF firacode nerd-fonts/Cascadia-Code
+# InstallFontFromFile
 Write-Done
 
 Write-Start -msg "Set Env shell"
 setEnvFnm -shell "ps1"
-setEnvFnm -shell "bash"
-setEnvFnm -shell "zsh"
+Start-Process -Wait powershell -verb runas -ArgumentList 'setEnvFnm -shell "bash"'
+# setEnvFnm -shell "bash"
+Start-Process -Wait powershell -verb runas -ArgumentList 'setEnvFnm -shell "zsh"'
+# setEnvFnm -shell "zsh"
 Write-Done
 
 Write-Start -msg "Set Git Credential Manager Core"
@@ -243,11 +245,14 @@ If (Test-Path $env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe
     }
 }
 Else {
+    Write-Start -msg "Installing windows-terminal"
+    scoop install extras/windows-terminal
+    Write-Done
 
-    If (test-path "$pathConfigWindowTerminal\settings.json") {
+    If (test-path "$pathConfigWindowTerminal") {
+        Copy-Item $pathFileConfigWindowTerminal -Destination $pathConfigWindowTerminal -Force
     }
     Else {
-        Copy-Item $pathFileConfigWindowTerminal -Destination $pathConfigWindowTerminal -Force
     }
 }
 Write-Done
