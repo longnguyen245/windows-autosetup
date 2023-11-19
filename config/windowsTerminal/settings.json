@@ -40,6 +40,7 @@
       "antialiasingMode": "grayscale",
       "colorScheme": "Chester",
       "opacity": 89,
+      "startingDirectory": "D:\\Workspaces",
       "useAcrylic": true
     },
     "list": [
@@ -198,12 +199,12 @@
       "yellow": "#E5C890"
     },
     {
-      "background": "#3b3b3b",
+      "background": "#3B3B3B",
       "black": "#080200",
-      "blue": "#28b3d6",
+      "blue": "#28B3D6",
       "brightBlack": "#6F6B68",
-      "brightBlue": "#4895d1",
-      "brightCyan": "#6d27de",
+      "brightBlue": "#4895D1",
+      "brightCyan": "#de9527",
       "brightGreen": "#16C98D",
       "brightPurple": "#D34590",
       "brightRed": "#FA5E5B",
@@ -212,7 +213,7 @@
       "cursorColor": "#B4B1B1",
       "cyan": "#28DDDE",
       "foreground": "#FFFFFF",
-      "green": "#dabe21",
+      "green": "#DABE21",
       "name": "Chester",
       "purple": "#D34590",
       "red": "#FA5E5B",
