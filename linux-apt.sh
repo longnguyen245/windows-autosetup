@@ -12,11 +12,11 @@ function print () {
 }
 
 # update package list
-echo Update list package...
 print "Apt updating"
+sudo apt update
 # Upgrade
 print "Upgrade..."
-sudo apt upgrate
+sudo apt upgrade -y
 
 # install Homebrew
 print "Installing HomeBrew..."
@@ -26,7 +26,7 @@ sudo -u $(whoami) -S /bin/bash -c 'curl -fsSL https://raw.githubusercontent.com/
 (echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> ~/.bashrc
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-sudo apt-get install build-essential
+sudo apt-get install build-essential unzip curl -y
 brew install gcc
 
 # install nodejs

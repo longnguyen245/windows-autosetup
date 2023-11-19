@@ -166,7 +166,7 @@ Start-Process -Wait powershell -verb runas -ArgumentList "git config --global cr
 Write-Done
 
 Write-Start -msg "Installing NodeJS in fnm"
-Start-Process -Wait powershell -verb runas -ArgumentList "fnm install 18"
+Start-Process -Wait powershell -verb runas -ArgumentList "fnm install 20"
 Start-Process -Wait powershell -verb runas -ArgumentList "fnm use 20"
 Write-Done
 
