@@ -33,6 +33,7 @@ brew install gcc
 print "Installing nodejs..."
 curl -fsSL https://fnm.vercel.app/install | bash
 source ~/.bashrc
+source ~/.zshrc
 fnm install 20
 fnm use 20
 
@@ -54,5 +55,5 @@ print "install Brew packages"
 brew install composer
 
 # install ohmyzsh
-print "Installing ohmyzsh..."
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" -y
+# print "Installing ohmyzsh..."
+# sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" -y
