@@ -32,8 +32,11 @@ brew install gcc
 # install nodejs
 print "Installing nodejs..."
 curl -fsSL https://fnm.vercel.app/install | bash
-source ~/.bashrc
-source ~/.zshrc
+# source ~/.bashrc
+# source ~/.zshrc
+# https://stackoverflow.com/questions/43659084/source-bashrc-in-a-script-not-working
+eval "$(grep -vFx '[ -z "$PS1" ] && return' ~/.bashrc)"
+eval "$(grep -vFx '[ -z "$PS1" ] && return' ~/.zshrc)"
 fnm install 20
 fnm use 20
 

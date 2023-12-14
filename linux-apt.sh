@@ -32,7 +32,9 @@ brew install gcc
 # install nodejs
 print "Installing nodejs..."
 curl -fsSL https://fnm.vercel.app/install | bash
-source ~/.bashrc
+# source ~/.bashrc
+eval "$(grep -vFx '[ -z "$PS1" ] && return' ~/.bashrc)"
+# eval "$(grep -vFx '[ -z "$PS1" ] && return' ~/.zshrc)"
 fnm install 20
 fnm use 20
 
