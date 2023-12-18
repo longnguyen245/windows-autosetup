@@ -150,7 +150,7 @@ Write-Done
 
 Write-Start -msg "Installing Fonts"
 scoop install nerd-fonts/FiraCode-NF nerd-fonts/Hack-NF firacode nerd-fonts/Cascadia-Code
-# InstallFontFromFile
+InstallFontFromFile
 Write-Done
 
 Write-Start -msg "Set Env shell"
