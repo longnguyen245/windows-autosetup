@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# sed -i 's/\r$//' filename => fix \r\n ubuntu
+
 # variables
 YELLOW=$'\e[0;33m'
 GREEN=$'\e[0;32m'
@@ -17,6 +19,8 @@ sudo apt update
 # Upgrade
 print "Upgrade..."
 sudo apt upgrade -y
+
+sudo apt install git -y
 
 # install Homebrew
 print "Installing HomeBrew..."
