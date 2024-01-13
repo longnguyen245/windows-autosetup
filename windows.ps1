@@ -54,7 +54,7 @@ Function SetEnvToShell {
         $fileContent = Get-Content -Path $shellPath
         $result = $fileContent -like $envCode
 
-        If ($result -ne $null) {
+        If ($null -ne $result) {
             Write-Host "$name FnmEnv existed" 
         }
         Else {
@@ -70,19 +70,17 @@ Function SetEnvToShell {
 }
 
 Function InstallFontFromFile {
-    $fontPath = Split-Path -Path $PSScriptRoot -Parent
-
-    $SourceDir = "$fontPath\"
-    $Source = "$fontPath\*"
+    $fontPath = "$PSScriptRoot\assets\fonts\"
+    $Source = "$fontPath*"
     $Destination = (New-Object -ComObject Shell.Application).Namespace(0x14)
     $TempFolder = "C:\Windows\Temp\Fonts"
 
     # Create the source directory if it doesn't already exist
-    New-Item -ItemType Directory -Force -Path $SourceDir
+    New-Item -ItemType Directory -Force -Path $fontPath
 
     New-Item $TempFolder -Type Directory -Force | Out-Null
 
-    Get-ChildItem -Path $Source -Include '*.ttf', '*.ttc', '*.otf' -Recurse | ForEach {
+    Get-ChildItem -Path $Source -Include '*.ttf', '*.ttc', '*.otf' -Recurse | ForEach-Object {
         If (-not(Test-Path "C:\Windows\Fonts\$($_.Name)")) {
 
             $Font = "$TempFolder\$($_.Name)"
@@ -118,7 +116,7 @@ if (Get-Command scoop -errorAction SilentlyContinue) {
 }
 else {
     Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-    irm get.scoop.sh | iex
+    Invoke-RestMethod get.scoop.sh | Invoke-Expression
 }
 Write-Done
 
@@ -138,7 +136,7 @@ scoop install main/dos2unix main/scrcpy main/adb gsudo <# Tool #>
 If (Test-Path !$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe) {
     scoop install extras/windows-terminal
 }
-scoop install vscode versions/vscode-insiders extras/vscodium main/fnm extras/sublime-text postman extras/heidisql extras/sourcetree <# Coding #>
+scoop install vscode versions/vscode-insiders extras/vscodium main/fnm extras/sublime-text postman extras/heidisql <# Coding #>
 scoop install python <# Runtime lib #> 
 Start-Process -Wait powershell -verb runas -ArgumentList "scoop install vcredist-aio"
 scoop install extras/telegram extras/neatdownloadmanager extras/anydesk <# Apps #> 
