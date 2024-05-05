@@ -261,6 +261,14 @@ Else {
 }
 Write-Done
 
+Write-Start -msg "Enable show hidden files"
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Hidden" -Value 1
+Write-Done
+
+Write-Start -msg "Enable show extension files"
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Value 0
+Write-Done
+
 # Write-Start -msg "Enable Virtualization"
 # Start-Process -Wait powershell -verb runas -ArgumentList @"
 # echo y | Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -

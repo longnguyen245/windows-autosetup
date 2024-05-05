@@ -79,24 +79,6 @@
                 "guid": "{f70876cd-21cf-459e-8bfd-176b2bc41578}",
                 "hidden": false,
                 "name": "Bash"
-            },
-            {
-                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-                "hidden": true,
-                "name": "Ubuntu",
-                "source": "Windows.Terminal.Wsl"
-            },
-            {
-                "guid": "{51855cb2-8cce-5362-8f54-464b92b32386}",
-                "hidden": false,
-                "name": "Ubuntu",
-                "source": "CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc"
-            },
-            {
-                "guid": "{b42f2cb8-a63b-5f1f-8717-c1ee1008e675}",
-                "hidden": false,
-                "name": "crb",
-                "source": "Windows.Terminal.Wsl"
             }
         ]
     },
