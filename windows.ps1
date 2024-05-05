@@ -130,20 +130,26 @@ scoop bucket add versions
 scoop update
 Write-Done
 
+
+# This will speed up package download
+Write-Start -msg "Installing aria2"
+scoop install aria2
+Write-Done
+
 Write-Start -msg "Installing Scoop's packages"
 # scoop install firefox googlechrome <# Web browser #> 
 scoop install main/dos2unix main/scrcpy main/adb gsudo <# Tool #>
 If (Test-Path !$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe) {
     scoop install extras/windows-terminal
 }
-scoop install vscode versions/vscode-insiders extras/vscodium main/fnm extras/sublime-text postman extras/heidisql <# Coding #>
+scoop install vscode versions/vscode-insiders extras/vscodium main/fnm extras/sublime-text postman extras/heidisql extras/sourcetree<# Coding #>
 scoop install python <# Runtime lib #> 
 Start-Process -Wait powershell -verb runas -ArgumentList "scoop install vcredist-aio"
 scoop install extras/telegram extras/neatdownloadmanager extras/anydesk <# Apps #> 
 Write-Done
 
 Write-Start -msg "Installing Chocolatey's packages"
-Start-Process -Wait powershell -verb runas -ArgumentList "choco install googlechrome brave firefox -y"
+Start-Process -Wait powershell -verb runas -ArgumentList "choco install googlechrome brave firefox warp -y"
 Write-Done
 
 Write-Start -msg "Installing Fonts"
@@ -153,10 +159,10 @@ Write-Done
 
 Write-Start -msg "Set Env shell"
 setEnvFnm -shell "ps1"
-Start-Process -Wait powershell -verb runas -ArgumentList 'setEnvFnm -shell "bash"'
-# setEnvFnm -shell "bash"
-Start-Process -Wait powershell -verb runas -ArgumentList 'setEnvFnm -shell "zsh"'
-# setEnvFnm -shell "zsh"
+# Start-Process -Wait powershell -verb runas -ArgumentList 'setEnvFnm -shell "bash"'
+setEnvFnm -shell "bash"
+# Start-Process -Wait powershell -verb runas -ArgumentList 'setEnvFnm -shell "zsh"'
+setEnvFnm -shell "zsh"
 Write-Done
 
 Write-Start -msg "Set Git Credential Manager Core"
@@ -255,29 +261,56 @@ Else {
 }
 Write-Done
 
+# Write-Start -msg "Enable Virtualization"
+# Start-Process -Wait powershell -verb runas -ArgumentList @"
+# echo y | Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -
+# All -Norestart
+# echo y | Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-
+# Subsystem-Linux -All -Norestart
+# echo y | Enable-WindowsOptionalFeature -Online -FeatureName
+# VirtualMachinePlatform -All
+# echo y | Enable-WindowsOptionalFeature -Online -FeatureName Containers -All
+# "@
+# Write-Done
+
+# Write-Start -msg "Installing WSL..."
+# wsl --set-default-version 2
+# If (!(wsl -l -v)) {
+#     wsl --install
+#     wsl --update
+#     wsl --install --no-launch --web-download -d Ubuntu
+#     Write-Warning "WSL installed"
+# }
+# Else {
+#     Write-Warning "WSL installed"
+# }
+
+# Write-Done
+
+
 Write-Start -msg "Enable Virtualization"
-Start-Process -Wait powershell -verb runas -ArgumentList @"
-echo y | Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -
-All -Norestart
-echo y | Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-
-Subsystem-Linux -All -Norestart
-echo y | Enable-WindowsOptionalFeature -Online -FeatureName
-VirtualMachinePlatform -All
-echo y | Enable-WindowsOptionalFeature -Online -FeatureName Containers -All
+Start-Process -Wait powershell -Verb runas -ArgumentList @"
+    echo y | Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart
+    echo y | Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All -NoRestart
+    echo y | Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -NoRestart
+    echo y | Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart
 "@
 Write-Done
 
 Write-Start -msg "Installing WSL..."
 wsl --set-default-version 2
-If (!(wsl -l -v)) {
+if (-not (Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux).State) {
     wsl --install
     wsl --update
     wsl --install --no-launch --web-download -d Ubuntu
-    Write-Warning "WSL installed"
+    Write-Host "WSL installed"
 }
-Else {
-    Write-Warning "WSL installed"
+else {
+    Write-Host "WSL already installed"
 }
-
 Write-Done
 
+
+
+## End
+Start-Process -Wait powershell -verb runas -ArgumentList "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1"
