@@ -33,6 +33,8 @@
     "copyOnSelect": false,
     "defaultProfile": "{f70876cd-21cf-459e-8bfd-176b2bc41578}",
     "experimental.rendering.software": false,
+    "initialCols": 90,
+    "initialRows": 20,
     "newTabMenu": 
     [
         {
@@ -48,7 +50,7 @@
             "font": 
             {
                 "face": "Consolas",
-                "size": 14.0
+                "size": 11.0
             },
             "opacity": 89,
             "startingDirectory": "E:\\Workspaces",
