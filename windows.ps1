@@ -142,7 +142,7 @@ scoop install main/dos2unix main/scrcpy main/adb gsudo <# Tool #>
 If (Test-Path !$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe) {
     scoop install extras/windows-terminal
 }
-scoop install vscode versions/vscode-insiders extras/vscodium main/fnm extras/sublime-text postman extras/heidisql extras/sourcetree<# Coding #>
+scoop install vscode versions/vscode-insiders extras/vscodium main/fnm extras/sublime-text postman extras/heidisql extras/sourcetree <# Coding #>
 scoop install python <# Runtime lib #> 
 Start-Process -Wait powershell -verb runas -ArgumentList "scoop install vcredist-aio"
 scoop install extras/telegram extras/neatdownloadmanager extras/anydesk <# Apps #> 
