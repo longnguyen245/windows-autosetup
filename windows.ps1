@@ -5,7 +5,8 @@
 # Variables
 $pathRoot = $PSScriptRoot 
 $evkeyLinkDownload = "https://github.com/lamquangminh/EVKey/releases/download/Release/EVKey.zip"
-$evkeyPathFile = "$HOME\Desktop\evkey.zip"
+$DesktopPath = [Environment]::GetFolderPath("Desktop")
+$evkeyPathFile = "$DesktopPath\evkey.zip"
 $evkeyPathFolder = "$HOME\PortableApps\evkey"
 $evkeyConfigFile = $pathRoot + "\config\evkey\setting.ini"
 $evKeyexeFile = $evkeyPathFolder + "\EVKey64.exe"
@@ -133,7 +134,8 @@ Write-Done
 
 # This will speed up package download
 Write-Start -msg "Installing aria2"
-scoop install aria2
+$ProgressPreference = 'SilentlyContinue'
+#scoop install aria2
 Write-Done
 
 Write-Start -msg "Installing Scoop's packages"
@@ -269,32 +271,6 @@ Write-Start -msg "Enable show extension files"
 Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Value 0
 Write-Done
 
-# Write-Start -msg "Enable Virtualization"
-# Start-Process -Wait powershell -verb runas -ArgumentList @"
-# echo y | Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -
-# All -Norestart
-# echo y | Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-
-# Subsystem-Linux -All -Norestart
-# echo y | Enable-WindowsOptionalFeature -Online -FeatureName
-# VirtualMachinePlatform -All
-# echo y | Enable-WindowsOptionalFeature -Online -FeatureName Containers -All
-# "@
-# Write-Done
-
-# Write-Start -msg "Installing WSL..."
-# wsl --set-default-version 2
-# If (!(wsl -l -v)) {
-#     wsl --install
-#     wsl --update
-#     wsl --install --no-launch --web-download -d Ubuntu
-#     Write-Warning "WSL installed"
-# }
-# Else {
-#     Write-Warning "WSL installed"
-# }
-
-# Write-Done
-
 
 Write-Start -msg "Enable Virtualization"
 Start-Process -Wait powershell -Verb runas -ArgumentList @"
@@ -305,20 +281,20 @@ Start-Process -Wait powershell -Verb runas -ArgumentList @"
 "@
 Write-Done
 
-Write-Start -msg "Installing WSL..."
-wsl --set-default-version 2
-if (-not (Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux).State) {
-    wsl --install
-    wsl --update
-    wsl --install --no-launch --web-download -d Ubuntu
-    Write-Host "WSL installed"
-}
-else {
-    Write-Host "WSL already installed"
-}
-Write-Done
+# Write-Start -msg "Installing WSL..."
+# wsl --set-default-version 2
+# if (-not (Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux).State) {
+#     wsl --install
+#     wsl --update
+#     wsl --install --no-launch --web-download -d Ubuntu
+#     Write-Host "WSL installed"
+# }
+# else {
+#     Write-Host "WSL already installed"
+# }
+# Write-Done
 
 
 
 ## End
-Start-Process -Wait powershell -verb runas -ArgumentList "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 1"
+Start-Process -Wait powershell -verb runas -ArgumentList "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 2"
