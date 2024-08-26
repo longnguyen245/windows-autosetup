@@ -139,7 +139,7 @@ $ProgressPreference = 'SilentlyContinue'
 Write-Done
 
 Write-Start -msg "Installing Scoop's packages"
-# scoop install firefox googlechrome <# Web browser #> 
+scoop install extras/googlechrome extras/brave extras/firefox <# Browser #>
 scoop install main/dos2unix main/scrcpy main/adb gsudo <# Tool #>
 If (Test-Path !$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe) {
     scoop install extras/windows-terminal
@@ -147,11 +147,11 @@ If (Test-Path !$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbw
 scoop install vscode versions/vscode-insiders extras/vscodium main/fnm extras/sublime-text postman extras/heidisql extras/sourcetree <# Coding #>
 scoop install python <# Runtime lib #> 
 Start-Process -Wait powershell -verb runas -ArgumentList "scoop install vcredist-aio"
-scoop install extras/telegram extras/neatdownloadmanager extras/anydesk <# Apps #> 
+scoop install extras/telegram extras/neatdownloadmanager extras/anydesk extras/bifrost <# Apps #>  
 Write-Done
 
 Write-Start -msg "Installing Chocolatey's packages"
-Start-Process -Wait powershell -verb runas -ArgumentList "choco install googlechrome brave firefox warp -y"
+Start-Process -Wait powershell -verb runas -ArgumentList "choco install warp -y"
 Write-Done
 
 Write-Start -msg "Installing Fonts"
@@ -170,6 +170,11 @@ Write-Done
 Write-Start -msg "Set Git Credential Manager Core"
 Start-Process -Wait powershell -verb runas -ArgumentList "git config --global credential.helper manager"
 Write-Done
+
+Write-Start -msg "Set Git default branch name"
+Start-Process -Wait powershell -verb runas -ArgumentList "git config --global init.defaultBranch main"
+Write-Done
+
 
 Write-Start -msg "Installing NodeJS in fnm"
 Start-Process -Wait powershell -verb runas -ArgumentList "fnm install 20"
