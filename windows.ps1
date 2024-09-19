@@ -14,6 +14,7 @@ $powershellFnmEnv = "fnm env --use-on-cd | Out-String | Invoke-Expression"
 $bashAndZshFnmEnv = 'eval "$(fnm env --use-on-cd)"'
 $pathConfigWindowTerminal = "$HOME\scoop\apps\windows-terminal\current\settings"
 $pathFileConfigWindowTerminal = $pathRoot + "\config\windowsTerminal\settings.json"
+$pathGitbashConfig = $pathRoot + "\config\gitbash"
 
 
 # Functions
@@ -35,12 +36,14 @@ Function setEnvFnm {
     switch ($shell) {
         "ps1" { SetEnvToShell -name 'Powershell' -shellPath $PROFILE -envCode $powershellFnmEnv }
         "bash" { 
-            SetEnvToShell -name 'Bash' -shellPath "$HOME\.bashrc" -envCode $bashAndZshFnmEnv 
-            dos2unix.exe -r -v -f -D utf8 "$HOME\.bashrc" 
+            # SetEnvToShell -name 'Bash' -shellPath "$HOME\.bashrc" -envCode $bashAndZshFnmEnv 
+            # dos2unix.exe -r -v -f -D utf8 "$HOME\.bashrc" 
+            Copy-Item "$pathGitbashConfig/.bashrc" -Destination $HOME -Force
         }
         "zsh" {
-            SetEnvToShell -name 'Zsh' -shellPath "$HOME\.zshrc" -envCode $bashAndZshFnmEnv
-            dos2unix.exe -r -v -f -D utf8 "$HOME\.bashrc"  
+            # SetEnvToShell -name 'Zsh' -shellPath "$HOME\.zshrc" -envCode $bashAndZshFnmEnv
+            # dos2unix.exe -r -v -f -D utf8 "$HOME\.bashrc"  
+            Copy-Item "$pathGitbashConfig/.zshrc" -Destination $HOME -Force
         }
         Default {}
     }
