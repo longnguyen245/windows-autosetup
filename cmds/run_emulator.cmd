@@ -1,0 +1,1 @@
+%USERPROFILE%/scoop/apps/android-clt/current/emulator/emulator.exe -avd Medium_Phone_API_35

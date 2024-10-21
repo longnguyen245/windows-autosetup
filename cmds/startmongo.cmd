@@ -1,0 +1,1 @@
+%USERPROFILE%\scoop\apps\mongodb\current\bin\mongod.exe --dbpath E:\mongodata
