@@ -175,7 +175,7 @@ RunCommands @(
     "scoop install googlechrome brave firefox", # Browser 
     "scoop install dos2unix scrcpy adb gsudo jadx", # Tool 
     "scoop install windows-terminal",
-    "scoop install vscode vscode-insiders vscodium fnm sublime-text postman heidisql sourcetree ngrok android-studio android-clt mongodb mongodb-compass", # Coding
+    "scoop install vscode vscodium fnm sublime-text postman heidisql sourcetree ngrok android-studio android-clt mongodb mongodb-compass", # Coding
     "scoop install python openjdk17", # Runtime lib 
     "scoop install telegram neatdownloadmanager anydesk bifrost dolphin", # Apps
     "scoop install FiraCode-NF Hack-NF firacode Cascadia-Code" # Fonts
