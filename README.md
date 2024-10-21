@@ -1,6 +1,7 @@
 ## Windows
 
 ``` powershell
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 windows.ps1
 ```
 
