@@ -1,3 +1,11 @@
 {
-  "editor.formatOnSave": false
+  "editor.formatOnSave": false,
+  "editor.minimap.enabled": false,
+  "cSpell.words": [
+    "8wekyb3d8bbwe",
+    "choco",
+    "evkey",
+    "EVKEY_DOWNLOAD_LINK",
+    "regs"
+  ]
 }

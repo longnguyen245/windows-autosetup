@@ -1,9 +1,5 @@
 ## Windows
-
-``` powershell
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-windows.ps1
-```
+run windows.cmd
 
 ## Wsl2 Ubuntu
 
