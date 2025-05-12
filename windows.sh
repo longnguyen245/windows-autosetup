@@ -31,14 +31,6 @@ fi
 log INFO "Disabling ConsentPromptBehaviorAdmin"
 run_powershell_command_with_admin "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0"
 
-# Install chocolatey
-log INFO "Installing chocolatey"
-if [ -f "/c/ProgramData/chocolatey/bin/choco.exe" ]; then
-    sudo choco upgrade chocolatey -y
-else
-    run_powershell_command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"
-fi
-
 # log INFO "Disabling aria2 for scoop"
 scoop config aria2-enabled false
 
@@ -62,7 +54,6 @@ scoop install telegram ayugram neatdownloadmanager anydesk bifrost dolphin beyon
 scoop install Hack-NF firacode Cascadia-Code                                                                                                # Fonts
 
 sudo scoop install vcredist-aio # Windows libs
-sudo choco install warp -y      # 1111
 
 log INFO "Setup Git"
 git config --global credential.helper manager
