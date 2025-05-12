@@ -136,6 +136,8 @@ run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows
 run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Value 0'
 # Disable Show recently used files in Quick access
 run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer" -Name ShowRecent -Value 0'
+# Disable frequently used folders in Quick acces
+run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer" -Name ShowFrequent -Value 0'
 # set default version wsl
 run_powershell_command "wsl --set-default-version 2"
 # Enable VirtualMachine
