@@ -140,6 +140,15 @@ run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows
 run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer" -Name ShowFrequent -Value 0'
 # Open explorer with default "this PC"
 run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name LaunchTo -Value 1'
+# set time zone
+run_powershell_command 'tzutil /s "SE Asia Standard Time"'
+# set date format
+run_powershell_command "Set-ItemProperty -Path 'HKCU:\Control Panel\International' -Name sShortDate -Value 'dd/MM/yyyy'"
+# set time format
+run_powershell_command "Set-ItemProperty -Path 'HKCU:\Control Panel\International' -Name sShortTime -Value 'HH:mm'"
+run_powershell_command "Set-ItemProperty -Path 'HKCU:\Control Panel\International' -Name sTimeFormat -Value 'HH:mm'"
+# restart explorer
+run_powershell_command "Stop-Process -Name explorer -Force"
 # set default version wsl
 run_powershell_command "wsl --set-default-version 2"
 # Enable VirtualMachine
