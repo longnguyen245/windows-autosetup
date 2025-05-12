@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source ./bin/utils.sh
+source ./bin/scoop.sh
 
 PWD=$(pwd)
 HOME=~
@@ -42,17 +43,17 @@ scoop bucket add java
 scoop bucket add versions
 scoop update
 
-scoop install wget2 openssl
-scoop install innounp-unicode                # Inno Setup Unpacker
-scoop install googlechrome brave firefox     # Browser
-scoop install dos2unix scrcpy adb gsudo jadx # Tool
-scoop install windows-terminal
-scoop install vscode vscodium fnm sublime-text postman heidisql sourcetree android-studio android-clt mongodb mongodb-compass warp-terminal # Coding
-scoop install python openjdk17                                                                                                              # Runtime lib
-scoop install telegram ayugram neatdownloadmanager anydesk bifrost dolphin beyondcompare                                                    # Apps
-scoop install Hack-NF firacode Cascadia-Code                                                                                                # Fonts
+scoop-install wget2 openssl
+scoop-install innounp-unicode                # Inno Setup Unpacker
+scoop-install googlechrome brave firefox     # Browser
+scoop-install dos2unix scrcpy adb gsudo jadx # Tool
+scoop-install windows-terminal
+scoop-install vscode vscodium fnm sublime-text postman heidisql sourcetree android-studio android-clt mongodb mongodb-compass warp-terminal # Coding
+scoop-install python openjdk17                                                                                                              # Runtime lib
+scoop-install telegram ayugram neatdownloadmanager anydesk bifrost dolphin beyondcompare                                                    # Apps
+scoop-install Hack-NF firacode Cascadia-Code                                                                                                # Fonts
 
-sudo scoop install vcredist-aio # Windows libs
+scoop-install-admin vcredist-aio # Windows libs
 
 log INFO "Setup Git"
 git config --global credential.helper manager
