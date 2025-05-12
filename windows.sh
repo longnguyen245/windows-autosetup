@@ -39,7 +39,6 @@ scoop config aria2-enabled false
 scoop bucket add extras
 scoop bucket add nerd-fonts
 scoop bucket add java
-scoop bucket add main
 scoop bucket add versions
 scoop update
 
