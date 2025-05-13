@@ -128,6 +128,9 @@ if [ ! -z "$NODEJS_GLOBAL_PACKAGES" ]; then
 fi
 # install local fonts
 log INFO "Installing local fonts"
+if [ ! -d "~/AppData/Local/Microsoft/Windows/Fonts" ]; then
+    mkdir ~/AppData/Local/Microsoft/Windows/Fonts
+fi
 cp $ASSETS/fonts/* ~/AppData/Local/Microsoft/Windows/Fonts
 
 # profiles setup
