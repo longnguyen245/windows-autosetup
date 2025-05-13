@@ -1,0 +1,1 @@
+powershell -ExecutionPolicy Bypass -File "./bin/generateConfigs.ps1"

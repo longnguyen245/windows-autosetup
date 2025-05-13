@@ -44,7 +44,7 @@
                 "size": 14
             },
             "opacity": 89,
-            "startingDirectory": "E:\\Workspaces",
+            "startingDirectory": "START_DIR",
             "useAcrylic": true
         },
         "list": 

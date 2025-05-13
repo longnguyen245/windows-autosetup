@@ -1,1 +1,4 @@
-test.ps1
+test.*
+localConfigs.sh
+tmp
+setup_tmp

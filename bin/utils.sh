@@ -20,12 +20,18 @@ convert_to_windows_path() {
     echo "$win_path"
 }
 
+escape_backslashes() {
+    local input="$1"
+    local escaped="${input//\\/\\\\}"
+    echo "$escaped"
+}
+
 run_powershell_command() {
     powershell.exe -Command "$1"
 }
 
 run_powershell_command_with_admin() {
-    sudo powershell.exe -Command "$1"
+    gsudo powershell.exe -Command "$1"
 }
 
 log() {

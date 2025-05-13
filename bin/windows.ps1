@@ -1,6 +1,19 @@
 # Set execution policy
 # Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 # Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+$pathRoot = $PSScriptRoot 
+$parentPath = [System.IO.Directory]::GetParent($pathRoot).FullName
+$configPath = "$parentPath\localConfigs.sh"
+
+if (Test-Path -Path $configPath) {
+    Write-Output ""
+}
+else {
+    Write-Host "localConfigs.sh not found, you need to run " -NoNewline
+    Write-Host "generateConfigs.cmd" -ForegroundColor Yellow -NoNewline
+    Write-Host " first"
+    exit
+}
 
 function RunCommands {
     param (
@@ -39,4 +52,4 @@ RunCommands @(
     "scoop install git"
 )
 
-& "$env:USERPROFILE\scoop\apps\git\current\bin\bash.exe" ".\windows.sh"
+& "$env:USERPROFILE\scoop\apps\git\current\bin\bash.exe" ".\bin\windows.sh"

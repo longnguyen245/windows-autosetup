@@ -1,1 +1,1 @@
-powershell -ExecutionPolicy Bypass -NoExit -File "./windows.ps1"
+powershell -ExecutionPolicy Bypass -NoExit -File "./bin/windows.ps1"

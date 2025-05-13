@@ -1,6 +1,6 @@
 #!/bin/bash
 
-scoop_nstall() {
+scoop_install() {
     for package in "$@"; do
         scoop install $package
     done
@@ -8,6 +8,6 @@ scoop_nstall() {
 
 scoop_install_admin() {
     for package in "$@"; do
-        sudo scoop install $package
+        gsudo scoop install $package
     done
 }
