@@ -49,7 +49,7 @@ RunCommandsWithAdmin @(
 InstallScoop
 
 RunCommands @(
-    "scoop install git"
+    "scoop install git gsudo"
 )
 
 & "$env:USERPROFILE\scoop\apps\git\current\bin\bash.exe" ".\bin\windows.sh"
