@@ -55,7 +55,7 @@ else
 fi
 
 log INFO "Installing core packages"
-scoop_install wget2
+scoop_install wget2 aria2
 
 log INFO "Installing packages"
 source ./pc/$PC/packages.sh
@@ -98,20 +98,33 @@ if [ ! -z $ENABLE_UTC_TIME ]; then
     run_powershell_command_with_admin "Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\TimeZoneInformation' -Name 'RealTimeIsUniversal' -Value 1 -Type DWord"
 fi
 
-# install evkey
+# install key
 if [ ! -z $TYPING_VIETNAMESE_LINK ]; then
     log INFO "Installing EVkey/Unikey"
-    wget2 -O "$SETUP_TMP_DIR/evkey.zip" $TYPING_VIETNAMESE_LINK
-    rm -rf "$SETUP_TMP_DIR/evkey"
-    unzip "$SETUP_TMP_DIR/evkey.zip" -d "$SETUP_TMP_DIR/evkey"
-    cp -r "$SETUP_TMP_DIR/evkey" $PORTABLE_APPS_DIR -f
-    cp $ASSETS/configs/evkey/setting.ini $PORTABLE_APPS_DIR/evkey
-    "$PORTABLE_APPS_DIR/evkey/EVKey64.exe" & # run exe
-    if [ ! -z $AUTOSTART_WITH_WINDOWS ]; then
-        create_shortcut \
-            "$(convert_to_windows_path "$PORTABLE_APPS_DIR/evkey/EVKey64.exe")" \
-            "$(convert_to_windows_path "$PORTABLE_APPS_DIR/evkey/EVKey64.lnk")"
-        cp -r $PORTABLE_APPS_DIR/evkey/EVKey64.lnk "$HOME/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/"
+    aria2c -d $SETUP_TMP_DIR -o key.zip $TYPING_VIETNAMESE_LINK
+    rm -rf "$SETUP_TMP_DIR/key"
+    unzip "$SETUP_TMP_DIR/key.zip" -d "$SETUP_TMP_DIR/key"
+    cp -r "$SETUP_TMP_DIR/key" $PORTABLE_APPS_DIR -f
+
+    if [ -d "$SETUP_TMP_DIR/key/UniKeyNT.exe" ]; then
+        "$PORTABLE_APPS_DIR/key/UniKeyNT.exe" & # run exe
+        if [ ! -z $AUTOSTART_WITH_WINDOWS ]; then
+            create_shortcut \
+                "$(convert_to_windows_path "$PORTABLE_APPS_DIR/key/UniKeyNT.exe")" \
+                "$(convert_to_windows_path "$PORTABLE_APPS_DIR/key/UniKeyNT.lnk")"
+            cp -r $PORTABLE_APPS_DIR/key/UniKeyNT.lnk "$HOME/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/"
+        fi
+    fi
+
+    if [ -d "$SETUP_TMP_DIR/key/EVKey64.exe" ]; then
+        cp $ASSETS/configs/evkey/setting.ini $PORTABLE_APPS_DIR/key
+        "$PORTABLE_APPS_DIR/key/EVKey64.exe" & # run exe
+        if [ ! -z $AUTOSTART_WITH_WINDOWS ]; then
+            create_shortcut \
+                "$(convert_to_windows_path "$PORTABLE_APPS_DIR/key/EVKey64.exe")" \
+                "$(convert_to_windows_path "$PORTABLE_APPS_DIR/key/EVKey64.lnk")"
+            cp -r $PORTABLE_APPS_DIR/key/EVKey64.lnk "$HOME/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/"
+        fi
     fi
 fi
 
