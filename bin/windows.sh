@@ -209,8 +209,8 @@ run_powershell_command_with_admin "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_M
 
 # cleanup
 log INFO "Cleaning up"
-# rm -rf $SETUP_TMP_DIR
-# rm -rf $ASSETS
+rm -rf $SETUP_TMP_DIR
+rm -rf $ASSETS
 run_powershell_command "scoop cleanup *"
 run_powershell_command "scoop cache rm *"
 log SUCCESS "DONE"
