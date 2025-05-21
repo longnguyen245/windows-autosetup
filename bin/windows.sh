@@ -19,6 +19,7 @@ SCOOP_DIR="$HOME/scoop"
 SCOOP_APPS="$SCOOP_DIR/apps"
 REAL_ASSETS=$PWD/assets
 ASSETS=$PWD/tmp
+PC_DIR=$PWD/pc/$PC
 
 export SETUP_TMP_DIR=$PWD/setup_tmp
 PORTABLE_APPS_DIR=~/portable_apps
@@ -225,7 +226,9 @@ run_powershell_command_with_admin "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_M
 
 # cleanup
 log INFO "Cleaning up"
-rm -rf $SETUP_TMP_DIR
+if [ ! -z $CLEAR_SETUP_TMP_DIR ]; then
+    rm -rf $SETUP_TMP_DIR
+fi
 rm -rf $ASSETS
 run_powershell_command "scoop cleanup *"
 run_powershell_command "scoop cache rm *"

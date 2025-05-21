@@ -9,4 +9,5 @@ cp ./tmp/*.cmd ./
 cp ./tmp/*.md ./
 rm -rf ./tmp
 
+source ./bin/afterUpdateSource.sh
 echo "Update done"

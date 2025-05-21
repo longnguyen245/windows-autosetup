@@ -5,8 +5,8 @@
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{f70876cd-21cf-459e-8bfd-176b2bc41578}",
-    "initialCols": 90,
-    "initialRows": 20,
+    "initialCols": 100,
+    "initialRows": 30,
     "keybindings": 
     [
         {
@@ -41,7 +41,7 @@
             "font": 
             {
                 "face": "Consolas",
-                "size": 14
+                "size": 11
             },
             "opacity": 89,
             "startingDirectory": "START_DIR",
@@ -50,7 +50,6 @@
         "list": 
         [
             {
-                "colorScheme": "Solarized Dark",
                 "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "hidden": false,

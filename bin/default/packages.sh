@@ -1,3 +1,9 @@
+# $HOME
+# $SCOOP_DIR
+# $SCOOP_APPS
+# $ASSETS
+# $PC_DIR
+
 scoop bucket add extras
 scoop update
 
