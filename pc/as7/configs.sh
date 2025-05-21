@@ -1,5 +1,5 @@
 
-# SCOOP_ARIA2=1
+SCOOP_ARIA2=1
 
 TYPING_VIETNAMESE_LINK=https://github.com/lamquangminh/EVKey/releases/download/Release/EVKey.zip
 AUTOSTART_WITH_WINDOWS=1
