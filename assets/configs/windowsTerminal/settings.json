@@ -37,13 +37,13 @@
         "defaults": 
         {
             "antialiasingMode": "grayscale",
-            "colorScheme": "Chester",
+            "colorScheme": "Dark+",
             "font": 
             {
                 "face": "Consolas",
                 "size": 11
             },
-            "opacity": 89,
+            "opacity": 58,
             "startingDirectory": "START_DIR",
             "useAcrylic": true
         },
