@@ -147,7 +147,6 @@ project/
 
 - Do not edit files directly in the `assets/` directory, as it contains binary (bin) files. Instead, override assets by placing modified files in `pc/<myPC>/assets/` with matching file names.
 - Ensure all paths in `localConfigs.sh`, `pc/<myPC>/configs.sh`, and `pc/<myPC>/packages.sh` (e.g., `WORKSPACE_PATH`) are valid and accessible on your system.
-- Always back up custom configurations in `localConfigs.sh`, `pc/<myPC>/configs.sh`, and `pc/<myPC>/packages.sh` before running `updateSource.cmd`, as updates may overwrite files.
 - Replace `<myPC>` with the actual name of your PC (e.g., `as7`).
 
 ### Credits
