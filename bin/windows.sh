@@ -165,6 +165,12 @@ fi
 # setup config for windows
 
 log INFO "Setup windows"
+
+# taskbar
+if [ ! -z $COMBINE_TASKBAR_BUTTONS_IS_FULL ]; then
+    run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarGlomLevel" -Type DWord -Value 1'
+fi
+
 # Enable show hidden files
 if [ ! -z $ENABLE_SHOW_HIDDEN_FILES ]; then
     run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Hidden" -Value 1'
@@ -199,7 +205,7 @@ if [ ! -z $FORMAT_TIME ]; then
     run_powershell_command "Set-ItemProperty -Path 'HKCU:\Control Panel\International' -Name sTimeFormat -Value '$FORMAT_TIME'"
 fi
 # restart explorer
-if [ ! -z "$TIME_ZONE" ] || [ ! -z $FORMAT_DATE ] || [ ! -z $FORMAT_TIME ]; then
+if [ ! -z "$TIME_ZONE" ] || [ ! -z $FORMAT_DATE ] || [ ! -z $FORMAT_TIME ] || [ ! -z $COMBINE_TASKBAR_BUTTONS_IS_FULL ]; then
     run_powershell_command "Stop-Process -Name explorer -Force"
 fi
 # set default version wsl
