@@ -107,7 +107,7 @@ if [ ! -z $TYPING_VIETNAMESE_LINK ]; then
     unzip "$SETUP_TMP_DIR/key.zip" -d "$SETUP_TMP_DIR/key"
     cp -r "$SETUP_TMP_DIR/key" $PORTABLE_APPS_DIR -f
 
-    if [ -d "$SETUP_TMP_DIR/key/UniKeyNT.exe" ]; then
+    if [ -f "$SETUP_TMP_DIR/key/UniKeyNT.exe" ]; then
         "$PORTABLE_APPS_DIR/key/UniKeyNT.exe" & # run exe
         if [ ! -z $AUTOSTART_WITH_WINDOWS ]; then
             create_shortcut \
@@ -117,7 +117,7 @@ if [ ! -z $TYPING_VIETNAMESE_LINK ]; then
         fi
     fi
 
-    if [ -d "$SETUP_TMP_DIR/key/EVKey64.exe" ]; then
+    if [ -f "$SETUP_TMP_DIR/key/EVKey64.exe" ]; then
         cp $ASSETS/configs/evkey/setting.ini $PORTABLE_APPS_DIR/key
         "$PORTABLE_APPS_DIR/key/EVKey64.exe" & # run exe
         if [ ! -z $AUTOSTART_WITH_WINDOWS ]; then
