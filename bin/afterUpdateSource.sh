@@ -2,6 +2,16 @@
 
 echo "Updating configs"
 
+ensure_file_ends_with_newline() {
+    file="$1"
+    [ ! -f "$file" ] && return
+    last_line=$(tail -n 1 "$file")
+
+    if [ ! -z "$last_line" ]; then
+        echo >>"$file"
+    fi
+}
+
 sync_config_vars() {
     file1="$1"
     file2="$2"
@@ -12,14 +22,7 @@ sync_config_vars() {
     }
 
     # add \n if missing
-    if [ -s "$file2" ]; then
-        lastchar=$(tail -c1 "$file2")
-        if [ "$lastchar" != "" ] && [ "$lastchar" != $'\n' ]; then
-            echo >>"$file2"
-        fi
-    fi
-
-    echo "$line" >>"$file2"
+    ensure_file_ends_with_newline $file2
 
     vars_in_file2=$(awk '
         {
