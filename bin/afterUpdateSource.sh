@@ -11,6 +11,16 @@ sync_config_vars() {
         return 1
     }
 
+    # add \n if missing
+    if [ -s "$file2" ]; then
+        lastchar=$(tail -c1 "$file2")
+        if [ "$lastchar" != "" ] && [ "$lastchar" != $'\n' ]; then
+            echo >>"$file2"
+        fi
+    fi
+
+    echo "$line" >>"$file2"
+
     vars_in_file2=$(awk '
         {
             line = $0
