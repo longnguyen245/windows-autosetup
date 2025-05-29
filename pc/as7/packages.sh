@@ -16,5 +16,6 @@ scoop_install Hack-NF firacode Cascadia-Code                                    
 
 scoop_install_admin vcredist-aio # Windows libs
 
-source ./pc/as7/acer.sh &
+source $PC_DIR/acer.sh &
+source $PC_DIR/custom.sh &
 # add_context_menu_app vlc vlc.exe vlc.ico
