@@ -1,5 +1,5 @@
 #!/bin/bash
-
+gsudo
 rm rf ./tmp
 git clone https://github.com/longnguyen245/windows-autosetup tmp
 rm -rf ./bin ./assets
@@ -11,3 +11,4 @@ rm -rf ./tmp
 
 source ./bin/afterUpdateSource.sh
 echo "Update done"
+exit
