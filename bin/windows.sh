@@ -196,16 +196,16 @@ if [ ! -z "$TIME_ZONE" ]; then
     run_powershell_command "tzutil /s '$TIME_ZONE'"
 fi
 # set date format
-if [ ! -z $FORMAT_DATE ]; then
+if [ ! -z "$FORMAT_DATE" ]; then
     run_powershell_command "Set-ItemProperty -Path 'HKCU:\Control Panel\International' -Name sShortDate -Value '$FORMAT_DATE'"
 fi
 # set time format
-if [ ! -z $FORMAT_TIME ]; then
+if [ ! -z "$FORMAT_TIME" ]; then
     run_powershell_command "Set-ItemProperty -Path 'HKCU:\Control Panel\International' -Name sShortTime -Value '$FORMAT_TIME'"
     run_powershell_command "Set-ItemProperty -Path 'HKCU:\Control Panel\International' -Name sTimeFormat -Value '$FORMAT_TIME'"
 fi
 # restart explorer
-if [ ! -z "$TIME_ZONE" ] || [ ! -z $FORMAT_DATE ] || [ ! -z $FORMAT_TIME ] || [ ! -z $COMBINE_TASKBAR_BUTTONS_IS_FULL ]; then
+if [ ! -z "$TIME_ZONE" ] || [ ! -z "$FORMAT_DATE" ] || [ ! -z "$FORMAT_TIME" ] || [ ! -z $COMBINE_TASKBAR_BUTTONS_IS_FULL ]; then
     run_powershell_command "Stop-Process -Name explorer -Force"
 fi
 # set default version wsl
