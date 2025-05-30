@@ -77,7 +77,7 @@ if [ -d "$HOME/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe" ]
 else
     scoop install extras/windows-terminal
     if [ ! -f "$SCOOP_DIR/persist/windows-terminalt/settings/settings.json" ]; then
-        cp $ASSETS/configs/windowsTerminal/settings.json $SCOOP_DIR/persist/windows-terminalt/settings
+        cp $ASSETS/configs/windowsTerminal/settings.json $SCOOP_DIR/persist/windows-terminal/settings
     fi
 fi
 
