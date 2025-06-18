@@ -7,5 +7,17 @@
     "evkey",
     "EVKEY_DOWNLOAD_LINK",
     "regs"
+  ],
+  "[shellscript]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "shellformat.shellfmt.path": "shfmt",
+  "shellformat.shellfmt.args": [
+    "-i",
+    "2",
+    "-ci",
+    "-sr",
+    "-quote-style",
+    "2"
   ]
 }
