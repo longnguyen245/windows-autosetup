@@ -182,6 +182,9 @@ log INFO "Setup windows"
     run_powershell_command "Set-ItemProperty -Path 'HKCU:\Control Panel\International' -Name sTimeFormat -Value '$FORMAT_TIME'"
 }
 
+# Sync time
+[ ! -z "$TIME_ZONE" ] || [ ! -z "$FORMAT_DATE" ] || [ ! -z "$FORMAT_TIME" ] && run_powershell_command_with_admin "w32tm /resync"
+
 # restart explorer
 [ ! -z "$TIME_ZONE" ] || [ ! -z "$FORMAT_DATE" ] || [ ! -z "$FORMAT_TIME" ] || [ ! -z $COMBINE_TASKBAR_BUTTONS_IS_FULL ] && run_powershell_command_with_admin "Stop-Process -Name explorer -Force"
 
