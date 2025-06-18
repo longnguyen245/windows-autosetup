@@ -166,67 +166,38 @@ fi
 
 log INFO "Setup windows"
 
-# taskbar
-if [ ! -z $COMBINE_TASKBAR_BUTTONS_IS_FULL ]; then
-    run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarGlomLevel" -Type DWord -Value 1'
-fi
+[ ! -z "$COMBINE_TASKBAR_BUTTONS_IS_FULL" ] && run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarGlomLevel" -Type DWord -Value 1'
+[ ! -z "$ENABLE_SHOW_HIDDEN_FILES" ] && run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Hidden" -Value 1'
+[ ! -z "$ENABLE_SHOW_HIDDEN_EXTENSIONS" ] && run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Value 0'
+[ ! -z "$DISABLE_SHOW_HIDDEN_SHOW_RECENTLY_FILES" ] && run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer" -Name ShowRecent -Value 0'
+[ ! -z "$DISABLE_SHOW_HIDDEN_SHOW_FREQUENTLY_FILES" ] && run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer" -Name ShowFrequent -Value 0'
+[ ! -z "$OPEN_EXPLORER_DEFAULT_WITH_THIS_PC" ] && run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name LaunchTo -Value 1'
 
-# Enable show hidden files
-if [ ! -z $ENABLE_SHOW_HIDDEN_FILES ]; then
-    run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "Hidden" -Value 1'
-fi
-# Enable show extension files
-if [ ! -z $ENABLE_SHOW_HIDDEN_EXTENSIONS ]; then
-    run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "HideFileExt" -Value 0'
-fi
-# Disable Show recently used files in Quick access
-if [ ! -z $DISABLE_SHOW_HIDDEN_SHOW_RECENTLY_FILES ]; then
-    run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer" -Name ShowRecent -Value 0'
-fi
-# Disable frequently used folders in Quick acces
-if [ ! -z $DISABLE_SHOW_HIDDEN_SHOW_FREQUENTLY_FILES ]; then
-    run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer" -Name ShowFrequent -Value 0'
-fi
-# Open explorer with default "this PC"
-if [ ! -z $OPEN_EXPLORER_DEFAULT_WITH_THIS_PC ]; then
-    run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name LaunchTo -Value 1'
-fi
-# set time zone
-if [ ! -z "$TIME_ZONE" ]; then
-    run_powershell_command "tzutil /s '$TIME_ZONE'"
-fi
-# set date format
-if [ ! -z "$FORMAT_DATE" ]; then
-    run_powershell_command "Set-ItemProperty -Path 'HKCU:\Control Panel\International' -Name sShortDate -Value '$FORMAT_DATE'"
-fi
-# set time format
-if [ ! -z "$FORMAT_TIME" ]; then
+# Date & time format
+[ ! -z "$TIME_ZONE" ] && run_powershell_command "tzutil /s '$TIME_ZONE'"
+[ ! -z "$FORMAT_DATE" ] && run_powershell_command "Set-ItemProperty -Path 'HKCU:\Control Panel\International' -Name sShortDate -Value '$FORMAT_DATE'"
+[ ! -z "$FORMAT_TIME" ] && {
     run_powershell_command "Set-ItemProperty -Path 'HKCU:\Control Panel\International' -Name sShortTime -Value '$FORMAT_TIME'"
     run_powershell_command "Set-ItemProperty -Path 'HKCU:\Control Panel\International' -Name sTimeFormat -Value '$FORMAT_TIME'"
-fi
+}
+
 # restart explorer
-if [ ! -z "$TIME_ZONE" ] || [ ! -z "$FORMAT_DATE" ] || [ ! -z "$FORMAT_TIME" ] || [ ! -z $COMBINE_TASKBAR_BUTTONS_IS_FULL ]; then
-    run_powershell_command_with_admin "Stop-Process -Name explorer -Force"
-fi
+[ ! -z "$TIME_ZONE" ] || [ ! -z "$FORMAT_DATE" ] || [ ! -z "$FORMAT_TIME" ] || [ ! -z $COMBINE_TASKBAR_BUTTONS_IS_FULL ] && run_powershell_command_with_admin "Stop-Process -Name explorer -Force"
+
 # set default version wsl
-if [ ! -z $SET_DEFAULT_WSL2 ]; then
-    run_powershell_command "wsl --set-default-version 2"
-fi
+[ ! -z $SET_DEFAULT_WSL2 ] && run_powershell_command "wsl --set-default-version 2"
+
 # Enable VirtualMachine
-if [ ! -z $ENABLE_HYPER_V ]; then
-    run_powershell_command_with_admin "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart"
-fi
-if [ ! -z $ENABLE_WSL ]; then
-    run_powershell_command_with_admin "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All -NoRestart"
-fi
-if [ ! -z $ENABLE_VIRTUAL_MACHINE ]; then
+[ ! -z $ENABLE_HYPER_V ] && run_powershell_command_with_admin "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart"
+
+[ ! -z $ENABLE_WSL ] && run_powershell_command_with_admin "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All -NoRestart"
+[ ! -z $ENABLE_VIRTUAL_MACHINE ] && {
     run_powershell_command_with_admin "Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -NoRestart"
     run_powershell_command_with_admin "Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart"
-fi
+}
 # Enable Windows Sandbox
-if [ ! -z $ENABLE_SANDBOX ]; then
-    run_powershell_command_with_admin "Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -All -Online -NoRestart"
-fi
+[ ! -z $ENABLE_SANDBOX ] && run_powershell_command_with_admin "Enable-WindowsOptionalFeature -FeatureName "Containers-DisposableClientVM" -All -Online -NoRestart"
+
 # Restoring ConsentPromptBehaviorAdmin
 run_powershell_command_with_admin "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 5"
 
