@@ -56,7 +56,7 @@ else
 fi
 
 log INFO "Installing core packages"
-scoop_install wget2 aria2
+scoop_install wget2 aria2 curl
 
 log INFO "Installing packages"
 source ./pc/$PC/packages.sh
@@ -206,7 +206,7 @@ if [ ! -z "$FORMAT_TIME" ]; then
 fi
 # restart explorer
 if [ ! -z "$TIME_ZONE" ] || [ ! -z "$FORMAT_DATE" ] || [ ! -z "$FORMAT_TIME" ] || [ ! -z $COMBINE_TASKBAR_BUTTONS_IS_FULL ]; then
-    run_powershell_command "Stop-Process -Name explorer -Force"
+    run_powershell_command_with_admin "Stop-Process -Name explorer -Force"
 fi
 # set default version wsl
 if [ ! -z $SET_DEFAULT_WSL2 ]; then
