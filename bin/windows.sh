@@ -172,6 +172,7 @@ log INFO "Setup windows"
 [ ! -z "$DISABLE_SHOW_HIDDEN_SHOW_RECENTLY_FILES" ] && run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer" -Name ShowRecent -Value 0'
 [ ! -z "$DISABLE_SHOW_HIDDEN_SHOW_FREQUENTLY_FILES" ] && run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer" -Name ShowFrequent -Value 0'
 [ ! -z "$OPEN_EXPLORER_DEFAULT_WITH_THIS_PC" ] && run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name LaunchTo -Value 1'
+[ ! -z "$ENABLE_CLIPBOARD_HISTORY" ] && run_powershell_command "Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Clipboard' -Name EnableClipboardHistory -Value 1"
 
 # Date & time format
 [ ! -z "$TIME_ZONE" ] && run_powershell_command "tzutil /s '$TIME_ZONE'"
