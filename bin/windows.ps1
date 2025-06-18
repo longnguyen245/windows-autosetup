@@ -1,55 +1,48 @@
-# Set execution policy
-# Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-# Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-$pathRoot = $PSScriptRoot 
-$parentPath = [System.IO.Directory]::GetParent($pathRoot).FullName
-$configPath = "$parentPath\localConfigs.sh"
+# ----------------------------
+# Auto Setup Script for Windows
+# ----------------------------
 
-if (Test-Path -Path $configPath) {
-    Write-Output ""
-}
-else {
+# Set script paths
+$pathRoot = $PSScriptRoot
+$parentPath = [System.IO.Directory]::GetParent($pathRoot).FullName
+$configPath = Join-Path $parentPath "localConfigs.sh"
+
+# Check config file existence
+if (-Not (Test-Path -Path $configPath)) {
     Write-Host "localConfigs.sh not found, you need to run " -NoNewline
     Write-Host "generateConfigs.cmd" -ForegroundColor Yellow -NoNewline
     Write-Host " first"
-    exit
+    Read-Host "Press Enter to exit..."
+    exit 1
 }
 
-function RunCommands {
-    param (
-        [string[]]$commands
-    )
-    foreach ($command in $commands) {
-        Invoke-Expression $command
-    }
-}
-
-function RunCommandsWithAdmin {
-    param (
-        [string[]]$commands
-    )
-    foreach ($command in $commands) {
-        Start-Process -Wait powershell -Verb runas -ArgumentList $command
-    }
-}
-
+# Install Scoop if not installed
 function InstallScoop {
-    if (Get-Command scoop -errorAction SilentlyContinue) {
+    if (Get-Command scoop -ErrorAction SilentlyContinue) {
+        Write-Host "Scoop already installed."
     }
     else {
-        Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+        Write-Host "Installing Scoop..."
+        Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
         Invoke-RestMethod get.scoop.sh | Invoke-Expression
     }
 }
 
-RunCommandsWithAdmin @(
-    "Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0"
-)
+# Step 2: Install Scoop
+if (Get-Command scoop -ErrorAction SilentlyContinue) {
+    Write-Host "Scoop already installed."
+}
+else {
+    Write-Host "Installing Scoop..."
+    Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
+    Invoke-RestMethod get.scoop.sh | Invoke-Expression
+}
 
-InstallScoop
+# Step 3: Install required packages
+Invoke-Expression "scoop install git gsudo"
 
-RunCommands @(
-    "scoop install git gsudo"
-)
+# Step 4: Run bash script
+$bashPath = "$env:USERPROFILE\scoop\apps\git\current\bin\bash.exe"
+$scriptToRun = ".\bin\windows.sh"
 
-& "$env:USERPROFILE\scoop\apps\git\current\bin\bash.exe" ".\bin\windows.sh"
+& $bashPath $scriptToRun
