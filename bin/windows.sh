@@ -17,6 +17,7 @@ PWD=$(pwd)
 HOME=~
 SCOOP_DIR="$HOME/scoop"
 SCOOP_APPS="$SCOOP_DIR/apps"
+SCOOP_BUCKETS="$SCOOP_DIR/buckets"
 REAL_ASSETS=$PWD/assets
 ASSETS=$PWD/tmp
 PC_DIR=$PWD/pc/$PC

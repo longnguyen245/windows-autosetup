@@ -19,3 +19,13 @@ scoop_install_admin() {
         fi
     done
 }
+
+scoop_add_bucket() {
+    for bucket in "$@"; do
+        if [ -d "$SCOOP_BUCKETS/$bucket" ]; then
+            log DEBUG "Bucket $bucket installed"
+        else
+            scoop bucket add $bucket
+        fi
+    done
+}

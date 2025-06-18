@@ -1,8 +1,9 @@
-scoop bucket add extras
-scoop bucket add nerd-fonts
-scoop bucket add java
-scoop bucket add versions
-scoop update
+# scoop bucket add extras
+# scoop bucket add nerd-fonts
+# scoop bucket add java
+# scoop bucket add versions
+# scoop update
+scoop_add_bucket extras nerd-fonts java 
 
 scoop_install wget2 openssl
 scoop_install innounp-unicode                # Inno Setup Unpacker
@@ -16,6 +17,6 @@ scoop_install Hack-NF firacode Cascadia-Code                                    
 
 scoop_install_admin vcredist-aio # Windows libs
 
-source $PC_DIR/acer.sh &
-source $PC_DIR/custom.sh &
+# source $PC_DIR/acer.sh &
+# source $PC_DIR/custom.sh &
 # add_context_menu_app vlc vlc.exe vlc.ico
