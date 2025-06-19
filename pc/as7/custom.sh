@@ -1,1 +1,4 @@
-sed -i 's/Consolas/Hack/' $ASSETS/configs/windowsTerminal/settings.json
+(
+    cd $PC_DIR
+    gsudo powershell.exe ./debloat.ps1
+) &
