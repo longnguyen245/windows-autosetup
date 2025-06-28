@@ -23,7 +23,7 @@ Get-AppxPackage *windowsalarms* | Remove-AppxPackage
 Get-AppxPackage *soundrecorder* | Remove-AppxPackage
 Get-AppxPackage *windowsfeedbackhub* | Remove-AppxPackage
 Get-AppxPackage *getstarted* | Remove-AppxPackage
-# Get-AppxPackage *clipchamp* | Remove-AppxPackage
+Get-AppxPackage *clipchamp* | Remove-AppxPackage
 Get-AppxPackage *todos* | Remove-AppxPackage
 Get-AppxPackage *msnweather* | Remove-AppxPackage
 Get-AppxPackage *devhome* | Remove-AppxPackage
