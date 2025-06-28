@@ -44,6 +44,7 @@ Get-AppxPackage *Microsoft.MicrosoftOfficeHub* | Remove-AppxPackage
 Get-AppxPackage *Microsoft.Wallet* | Remove-AppxPackage
 Get-AppxPackage *Microsoft.Edge.GameAssist* | Remove-AppxPackage
 Get-AppxPackage *copilot* | Remove-AppxPackage
+Get-AppxPackage *BingSearch* | Remove-AppxPackage
 
 $oneDrivePath64 = "$env:SystemRoot\SysWOW64\OneDriveSetup.exe"
 if (Test-Path $oneDrivePath64) {
