@@ -15,7 +15,6 @@ Get-AppxPackage *zunevideo* | Remove-AppxPackage
 Get-AppxPackage *mspaint* | Remove-AppxPackage
 Get-AppxPackage *solitairecollection* | Remove-AppxPackage
 Get-AppxPackage *yourphone* | Remove-AppxPackage
-# Get-AppxPackage *people* | Remove-AppxPackage
 Get-AppxPackage *stickynotes* | Remove-AppxPackage
 Get-AppxPackage *windowsmaps* | Remove-AppxPackage
 Get-AppxPackage *windowscamera* | Remove-AppxPackage
