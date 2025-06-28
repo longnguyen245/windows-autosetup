@@ -1,0 +1,7 @@
+<keymap version="1" name="Windows copy" parent="$default">
+  <action id="ReformatCode">
+    <keyboard-shortcut first-keystroke="ctrl alt l" />
+    <keyboard-shortcut first-keystroke="ctrl s" />
+  </action>
+  <action id="SaveAll" />
+</keymap>

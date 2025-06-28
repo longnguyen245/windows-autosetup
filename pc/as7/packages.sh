@@ -17,9 +17,10 @@ scoop_install ayugram neatdownloadmanager anydesk beyondcompare memreduct       
 (
 source $PC_DIR/acer.sh 
 )&
+
 (
 	source $PC_DIR/custom.sh
-) &
+)&
 # add_context_menu_app vlc vlc.exe vlc.ico
 
 "$SCOOP_APPS/neatdownloadmanager/current/NeatDM.exe"
