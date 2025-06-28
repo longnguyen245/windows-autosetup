@@ -25,4 +25,4 @@ Copy-Item "$srcPath\*.md" .\
 Remove-Item -Recurse -Force $tempDir
 Remove-Item -Force $zipPath
 
-& "$env:USERPROFILE\scoop\apps\git\current\bin\bash.exe" ".\bin\updateSource.sh"
+& "$env:USERPROFILE\scoop\apps\git\current\bin\bash.exe" ".\bin\afterUpdateSource.sh"
