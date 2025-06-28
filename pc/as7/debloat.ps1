@@ -32,6 +32,7 @@ Get-AppxPackage *powerautomate* | Remove-AppxPackage
 Get-AppxPackage *quickassist* | Remove-AppxPackage
 # Get-AppxPackage *webexperience* | Remove-AppxPackage
 Get-AppxPackage *microsoftteams* | Remove-AppxPackage
+Get-AppxPackage *Teams* | Remove-AppxPackage # for windows 11
 # Get-AppxPackage *xboxgamingoverlay* | Remove-AppxPackage
 Get-AppxPackage *linkedin* | Remove-AppxPackage
 Get-AppxPackage *Microsoft.549981C3F5F10* | Remove-AppxPackage
