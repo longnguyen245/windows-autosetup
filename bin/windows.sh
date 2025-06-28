@@ -174,6 +174,10 @@ log INFO "Setup windows"
 [ ! -z "$DISABLE_SHOW_HIDDEN_SHOW_FREQUENTLY_FILES" ] && run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer" -Name ShowFrequent -Value 0'
 [ ! -z "$OPEN_EXPLORER_DEFAULT_WITH_THIS_PC" ] && run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name LaunchTo -Value 1'
 [ ! -z "$ENABLE_CLIPBOARD_HISTORY" ] && run_powershell_command "Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Clipboard' -Name EnableClipboardHistory -Value 1"
+[ ! -z "$W11_USE_W10_CONTEXT_MENU" ] && {
+    run_powershell_command 'New-Item -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" -Force | Out-Null'
+    run_powershell_command 'Set-ItemProperty -Path "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" -Name "(default)" -Value ""'
+}
 
 # Date & time format
 [ ! -z "$TIME_ZONE" ] && run_powershell_command "tzutil /s '$TIME_ZONE'"
