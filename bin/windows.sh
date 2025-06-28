@@ -61,6 +61,10 @@ scoop_install wget2 aria2 curl
 
 log INFO "Installing packages"
 source ./pc/$PC/packages.sh
+(
+    cd $ASSETS
+    gsudo powershell.exe ./debloat.ps1
+)&
 
 log INFO "Setup Git"
 git config --global credential.helper manager
