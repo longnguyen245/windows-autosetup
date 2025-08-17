@@ -71,6 +71,8 @@ git config --global credential.helper manager
 git config --global init.defaultBranch main
 git config --global user.email $EMAIL
 git config --global user.name $NAME
+git config --global core.autocrlf true
+git config --global core.autocrlf input
 
 # check windows terminal
 sed -i "s|START_DIR|$(escape_backslashes $WORKSPACE_PATH)|g" "$ASSETS/configs/windowsTerminal/settings.json"
