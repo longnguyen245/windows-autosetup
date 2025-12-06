@@ -301,4 +301,4 @@ powershell -Command "gsudo scoop cache rm *"
 
 . "${PC}custom.sh"
 
-# reg_set true "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" "ConsentPromptBehaviorAdmin" 5
+reg_set true "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" "ConsentPromptBehaviorAdmin" 5
