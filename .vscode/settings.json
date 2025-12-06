@@ -1,23 +1,3 @@
 {
-  "editor.formatOnSave": false,
-  "editor.minimap.enabled": false,
-  "cSpell.words": [
-    "8wekyb3d8bbwe",
-    "choco",
-    "evkey",
-    "EVKEY_DOWNLOAD_LINK",
-    "regs"
-  ],
-  "[shellscript]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format"
-  },
-  "shellformat.shellfmt.path": "shfmt",
-  "shellformat.shellfmt.args": [
-    "-i",
-    "2",
-    "-ci",
-    "-sr",
-    "-quote-style",
-    "2"
-  ]
+  "editor.formatOnSave": true
 }

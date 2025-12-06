@@ -1,1 +1,0 @@
-the code will automatically replace `START_DIR` in settings.json with WORKSPACE_PATH in localConfigs.sh
