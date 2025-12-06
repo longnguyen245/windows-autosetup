@@ -18,6 +18,14 @@ SCOOP_APPS=$SCOOP_DIR/apps
 SCOOP_BUCKETS=$SCOOP_DIR/buckets
 TMP=$PWD/tmp
 WINDIR_64=/c/Windows/SysWOW64
+WIN_EDITION=$(powershell -NoProfile -Command "(Get-ItemProperty 'HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion').EditionID" | tr -d '\r')
+IS_WINDOWS_HOME=false
+
+if [ "$WIN_EDITION" = "CoreSingleLanguage" ]; then
+    IS_WINDOWS_HOME=true
+else
+    IS_WINDOWS_HOME=false
+fi
 
 if [ ${#LIST_PC[@]} -eq 0 ]; then
     mkdir -p "pc/my_pc"
@@ -147,9 +155,9 @@ reg_set true "HKLM:\SYSTEM\CurrentControlSet\Control\TimeZoneInformation" "RealT
 
 
 if is_true $ENABLE_FORMAT_DATE; then
-    reg_set false "HKCU:\Control Panel\International" "sShortDate" "'$FORMAT_DATE'"
-    reg_set false "HKCU:\Control Panel\International" "sShortTime" "'$FORMAT_TIME'"
-    reg_set false "HKCU:\Control Panel\International" "sTimeFormat" "'$FORMAT_TIME'"
+    reg_set false "HKCU:\Control Panel\International" "sShortDate" "'$FORMAT_DATE'" "String"
+    reg_set false "HKCU:\Control Panel\International" "sShortTime" "'$FORMAT_TIME'" "String"
+    reg_set false "HKCU:\Control Panel\International" "sTimeFormat" "'$FORMAT_TIME'" "String"
 fi
 
 if [ -n "$TIME_ZONE" ] || [ -n "$FORMAT_DATE" ] || [ -n "$FORMAT_TIME" ]; then
@@ -167,19 +175,33 @@ else
     powershell -Command "wsl --set-default-version 1"
 fi
 
-is_true $ENABLE_HYPER_V &&
-powershell -Command "gsudo Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart"
+if is_true $ENABLE_HYPER_V; then
+    if is_true $IS_WINDOWS_HOME; then
+        echo "Hyper-V is not available on Windows Home edition. Skipping Hyper-V enablement."
+    else
+        powershell -Command "gsudo Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All -NoRestart"
+    fi
+fi
 
 is_true $ENABLE_WSL &&
 powershell -Command "gsudo Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux -All -NoRestart"
 
 if is_true $ENABLE_VIRTUAL_MACHINE; then
     powershell -Command "gsudo Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -NoRestart"
-    powershell -Command "gsudo Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart"
+    if is_true $IS_WINDOWS_HOME; then
+        echo "Containers is limited on Windows Home edition. Some features may not be available."
+    else
+        powershell -Command "gsudo Enable-WindowsOptionalFeature -Online -FeatureName Containers -All -NoRestart"
+    fi
 fi
 
-is_true $ENABLE_SANDBOX &&
-powershell -Command "gsudo Enable-WindowsOptionalFeature -FeatureName Containers-DisposableClientVM -All -Online -NoRestart"
+if is_true $ENABLE_SANDBOX; then
+    if is_true $IS_WINDOWS_HOME; then
+        echo "Windows Sandbox is not available on Windows Home edition. Skipping Sandbox enablement."
+    else
+        powershell -Command "gsudo Enable-WindowsOptionalFeature -FeatureName Containers-DisposableClientVM -All -Online -NoRestart"
+    fi
+fi
 
 if is_true $DISABLE_ADS; then
     reg_set false "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" "ShowSyncProviderNotifications" 0 DWord
