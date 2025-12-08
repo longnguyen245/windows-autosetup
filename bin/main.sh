@@ -225,20 +225,45 @@ if [ -f "$HOME/.bashrc" ]; then
 else
     echo "Creating $HOME/.bashrc"
     touch "$HOME/.bashrc"
-    echo "PROMPT_COMMAND='history -a'" >> "$HOME/.bashrc"
-    echo "export LC_ALL=en_US.UTF-8" >> "$HOME/.bashrc"
-    echo "export LANG=en_US.UTF-8" >> "$HOME/.bashrc"
-    echo "export LANGUAGE=en_US.UTF-8" >> "$HOME/.bashrc"
-    echo "alias si='scoop install'" >> "$HOME/.bashrc"
-    echo "alias sui='scoop uninstall'" >> "$HOME/.bashrc"
-    echo "alias supdate='$ASSETS/cmds/scoopUpdate.cmd'" >> "$HOME/.bashrc"
-    echo "alias getwallpaper='$ASSETS/cmds/getCurrentWallpaperV2.cmd'" >> "$HOME/.bashrc"
-    echo 'CUR=$(realpath "$PWD")' >> "$HOME/.bashrc"
-    echo 'WT1=$(realpath "$HOME/scoop/apps/windows-terminal/current")' >> "$HOME/.bashrc"
-    echo 'WT2=$(realpath "$HOME/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe")' >> "$HOME/.bashrc"
-    echo 'if [ "$CUR" = "$WT1" ] || [ "$CUR" = "$WT2" ]; then' >> "$HOME/.bashrc"
-    echo "  cd $WORKSPACES_DEFAULT" >> "$HOME/.bashrc"
-    echo "fi" >> "$HOME/.bashrc"
+    
+    echo "export ASSETS=$ASSETS" >> $HOME/.bashrc
+    echo "export WORKSPACES_DEFAULT=$WORKSPACES_DEFAULT" >> $HOME/.bashrc
+    
+    cat << 'EOF' >> "$HOME/.bashrc"
+PROMPT_COMMAND='history -a'
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+
+alias si='scoop install'
+alias sui='scoop uninstall'
+alias supdate='$ASSETS/cmds/scoopUpdate.cmd'
+alias getwallpaper='$ASSETS/cmds/getCurrentWallpaperV2.cmd'
+
+CUR=$(realpath "$PWD")
+WT1=$(realpath "$HOME/scoop/apps/windows-terminal/current")
+WT2=$(realpath "$HOME/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe")
+
+if [ "$CUR" = "$WT1" ] || [ "$CUR" = "$WT2" ]; then
+    cd $WORKSPACES_DEFAULT
+fi
+
+# ===== Helper Section =====
+if [ ! -f "$HOME/.nohelper" ]; then
+    echo "
+si <app>           - Install an app with Scoop
+sui <app>          - Uninstall an app with Scoop
+supdate            - Update Scoop and installed apps
+getwallpaper       - Get the current Windows wallpaper
+------------------------------------------------------
+disablehelper      - Disable this help section
+"
+fi
+
+alias disablehelper='touch ~/.nohelper && echo "Helper disabled."'
+alias enablehelper='rm -f ~/.nohelper && echo "Helper enabled."'
+EOF
+    
     echo "Applied bashrc settings"
 fi
 
