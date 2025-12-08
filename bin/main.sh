@@ -233,8 +233,12 @@ else
     echo "alias sui='scoop uninstall'" >> "$HOME/.bashrc"
     echo "alias supdate='$ASSETS/cmds/scoopUpdate.cmd'" >> "$HOME/.bashrc"
     echo "alias getwallpaper='$ASSETS/cmds/getCurrentWallpaperV2.cmd'" >> "$HOME/.bashrc"
-    echo "export LANGUAGE=en_US.UTF-8" >> "$HOME/.bashrc"
-    echo "cd $WORKSPACES_DEFAULT" >> "$HOME/.bashrc"
+    echo 'CUR=$(realpath "$PWD")' >> "$HOME/.bashrc"
+    echo 'WT1=$(realpath "$HOME/scoop/apps/windows-terminal/current")' >> "$HOME/.bashrc"
+    echo 'WT2=$(realpath "$HOME/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe")' >> "$HOME/.bashrc"
+    echo 'if [ "$CUR" = "$WT1" ] || [ "$CUR" = "$WT2" ]; then' >> "$HOME/.bashrc"
+    echo "  cd $WORKSPACES_DEFAULT" >> "$HOME/.bashrc"
+    echo "fi" >> "$HOME/.bashrc"
     echo "Applied bashrc settings"
 fi
 
