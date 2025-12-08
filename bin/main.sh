@@ -17,7 +17,7 @@ SCOOP_DIR=$HOME/scoop
 SCOOP_APPS=$SCOOP_DIR/apps
 SCOOP_BUCKETS=$SCOOP_DIR/buckets
 TMP=$PWD/tmp
-WINDIR_64=/c/Windows/SysWOW64
+WINDIR_64=/c/Windows/System32
 WIN_EDITION=$(powershell -NoProfile -Command "(Get-ItemProperty 'HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion').EditionID" | tr -d '\r')
 IS_WINDOWS_HOME=false
 
