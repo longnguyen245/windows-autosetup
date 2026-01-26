@@ -250,6 +250,11 @@ restart() {
 shutdown() {
     /c/Windows/System32/shutdown.exe -s -t 0
 }
+cleantemp() {
+    rm -rf /c/Users/$USER/AppData/Local/Temp/* 2>/dev/null
+    rm -rf /c/Windows/Temp/* 2>/dev/null
+    echo "Done"
+}
 
 CUR=$(realpath "$PWD")
 WT1=$(realpath "$HOME/scoop/apps/windows-terminal/current")
@@ -269,6 +274,7 @@ getwallpaper       - Get the current Windows wallpaper
 shrinkwsl          - Shrink wsl2 disk
 shutdown           - Shutdown
 reboot/restart     - Restart
+cleantemp          - Clean temp
 ------------------------------------------------------
 disablehelper      - Disable this help section
 "
