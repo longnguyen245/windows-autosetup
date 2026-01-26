@@ -241,6 +241,16 @@ alias supdate='$ASSETS/cmds/scoopUpdate.cmd'
 alias getwallpaper='$ASSETS/cmds/getCurrentWallpaperV2.cmd'
 alias shrinkwsl='$ASSETS/cmds/shrink_wsl.cmd'
 
+reboot() {
+    /c/Windows/System32/shutdown.exe -r -t 0
+}
+restart() {
+    reboot
+}
+shutdown() {
+    /c/Windows/System32/shutdown.exe -s -t 0
+}
+
 CUR=$(realpath "$PWD")
 WT1=$(realpath "$HOME/scoop/apps/windows-terminal/current")
 WT2=$(realpath "$HOME/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe")
@@ -257,6 +267,8 @@ sui <app>          - Uninstall an app with Scoop
 supdate            - Update Scoop and installed apps
 getwallpaper       - Get the current Windows wallpaper
 shrinkwsl          - Shrink wsl2 disk
+shutdown           - Shutdown
+reboot/restart     - Restart
 ------------------------------------------------------
 disablehelper      - Disable this help section
 "
