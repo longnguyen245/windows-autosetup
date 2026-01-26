@@ -239,6 +239,7 @@ alias si='scoop install'
 alias sui='scoop uninstall'
 alias supdate='$ASSETS/cmds/scoopUpdate.cmd'
 alias getwallpaper='$ASSETS/cmds/getCurrentWallpaperV2.cmd'
+alias shrinkwsl='$ASSETS/cmds/shrink_wsl.cmd'
 
 CUR=$(realpath "$PWD")
 WT1=$(realpath "$HOME/scoop/apps/windows-terminal/current")
@@ -255,6 +256,7 @@ si <app>           - Install an app with Scoop
 sui <app>          - Uninstall an app with Scoop
 supdate            - Update Scoop and installed apps
 getwallpaper       - Get the current Windows wallpaper
+shrinkwsl          - Shrink wsl2 disk
 ------------------------------------------------------
 disablehelper      - Disable this help section
 "
