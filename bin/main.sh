@@ -359,7 +359,7 @@ for pkg in "${tmp_list[@]}"; do
             powershell.exe -NoProfile -Command "& {Start-Process '$(convert_to_windows_path $ONE_DRIVE_PATH)' -ArgumentList '/uninstall' -NoNewWindow -Wait}"
         fi
     else
-        powershell -Command "gsudo Get-AppxPackage *$pkg* | Remove-AppxPackage"
+        gsudo powershell -Command "Get-AppxPackage *$pkg* | Remove-AppxPackage"
     fi
 done
 
