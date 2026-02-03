@@ -18,6 +18,7 @@ SCOOP_APPS=$SCOOP_DIR/apps
 SCOOP_BUCKETS=$SCOOP_DIR/buckets
 TMP=$PWD/tmp
 WINDIR_64=/c/Windows/System32
+WINDIR_32=/c/Windows/SysWOW64
 WIN_EDITION=$(powershell -NoProfile -Command "(Get-ItemProperty 'HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion').EditionID" | tr -d '\r')
 IS_WINDOWS_HOME=false
 
@@ -360,6 +361,10 @@ for pkg in "${tmp_list[@]}"; do
     echo "Removing $pkg"
     if [ "$pkg" = "OneDrive" ]; then
         ONE_DRIVE_PATH="$WINDIR_64/OneDriveSetup.exe"
+        if [ -f "$ONE_DRIVE_PATH" ]; then
+            powershell.exe -NoProfile -Command "& {Start-Process '$(convert_to_windows_path $ONE_DRIVE_PATH)' -ArgumentList '/uninstall' -NoNewWindow -Wait}"
+        fi
+        ONE_DRIVE_PATH="$WINDIR_32/OneDriveSetup.exe"
         if [ -f "$ONE_DRIVE_PATH" ]; then
             powershell.exe -NoProfile -Command "& {Start-Process '$(convert_to_windows_path $ONE_DRIVE_PATH)' -ArgumentList '/uninstall' -NoNewWindow -Wait}"
         fi
