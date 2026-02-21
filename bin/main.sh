@@ -57,7 +57,7 @@ pc_files=("bucket.txt" "scoop.txt" "debloat.txt" "config.env")
 for file in "${pc_files[@]}"; do
     if [ ! -f "${PC}${file}" ]; then
         touch "${PC}${file}"
-        echo $DEFAULT/$file > "${PC}${file}"
+        cat "$DEFAULT/$file" > "$PC/$file"
     fi
 done
 
