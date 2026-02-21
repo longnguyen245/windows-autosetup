@@ -57,7 +57,7 @@ pc_files=("bucket.txt" "scoop.txt" "debloat.txt" "config.env")
 for file in "${pc_files[@]}"; do
     if [ ! -f "${PC}${file}" ]; then
         touch "${PC}${file}"
-        cat $DEFAULT/$file > "${PC}${file}"
+        echo $DEFAULT/$file > "${PC}${file}"
     fi
 done
 
@@ -324,7 +324,7 @@ if is_true $USE_VIETNAM_TYPING; then
     "$(convert_to_windows_path $EXE_DIR)" \
     "$(convert_to_windows_path "$PORTABLE_APPS_DIR/key/EVKey64.lnk")"
     cp -r $PORTABLE_APPS_DIR/key/EVKey64.lnk "$HOME/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/"
-
+    
     if [ ! -f "$PORTABLE_APPS_DIR/key/setting.ini" ]; then
         cp $TMP/assets/configs/evkey/setting.ini $PORTABLE_APPS_DIR/key
         echo "Copied $TMP/assets/configs/evkey/setting.ini"
