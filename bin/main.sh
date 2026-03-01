@@ -297,9 +297,9 @@ cp $TMP/assets/fonts/* ~/AppData/Local/Microsoft/Windows/Fonts
 echo "Installing Windows Terminal"
 if [ -d "$HOME/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe" ]; then
     echo skipped
-    if [ ! -f "$HOME/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json" ]; then
+    # if [ ! -f "$HOME/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json" ]; then
         cp $TMP/assets/configs/windowsTerminal/settings.json ~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState
-    fi
+    # fi
 else
     scoop install windows-terminal
     if [ ! -f "$SCOOP_DIR/persist/windows-terminalt/settings/settings.json" ]; then
