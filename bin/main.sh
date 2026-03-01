@@ -257,12 +257,12 @@ cleantemp() {
     echo "Done"
 }
 
-CUR=$(realpath "$PWD")
-WT1=$(realpath "$HOME/scoop/apps/windows-terminal/current")
-WT2=$(realpath "$HOME/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe")
+CUR=$(pwd -P)
+WT1=$(realpath "$HOME/scoop/apps/windows-terminal/current" 2>/dev/null || true)
+WT2=$(realpath "$HOME/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe" 2>/dev/null || true)
 
 if [ "$CUR" = "$WT1" ] || [ "$CUR" = "$WT2" ]; then
-    cd $WORKSPACES_DEFAULT
+    cd "$WORKSPACES_DEFAULT"
 fi
 
 # ===== Helper Section =====
