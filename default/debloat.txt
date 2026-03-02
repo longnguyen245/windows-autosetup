@@ -22,7 +22,10 @@ microsoftteams
 MixedReality.Portal
 msnweather
 mspaint
+newoutlook
+OneDrive
 onenote
+outlook
 powerautomate
 quickassist
 skypeapp
@@ -38,7 +41,5 @@ windowscommunicationsapps
 windowsfeedbackhub
 windowsmaps
 yourphone
-zunevideo
-OneDrive
-newoutlook
 zunemusic
+zunevideo
