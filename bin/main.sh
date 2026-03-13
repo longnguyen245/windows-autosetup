@@ -89,7 +89,7 @@ fi
 . "${PC}config.local.env"
 
 cp -r $ASSETS $TMP
-cp -r "${PC}"* $TMP
+cp -rf "${PC}"* $TMP
 
 declare -a tmp_list
 read_file_to_array $TMP/bucket.txt tmp_list
@@ -298,7 +298,7 @@ echo "Installing Windows Terminal"
 if [ -d "$HOME/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe" ]; then
     echo skipped
     # if [ ! -f "$HOME/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json" ]; then
-        cp $TMP/assets/configs/windowsTerminal/settings.json ~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState
+    cp $TMP/assets/configs/windowsTerminal/settings.json ~/AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState
     # fi
 else
     scoop install windows-terminal
@@ -380,6 +380,6 @@ fi
 powershell -Command "gsudo scoop cleanup *"
 powershell -Command "gsudo scoop cache rm *"
 
-. "${PC}custom.sh"
-
 reg_set true "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" "ConsentPromptBehaviorAdmin" 5
+
+. "${PC}custom.sh"
