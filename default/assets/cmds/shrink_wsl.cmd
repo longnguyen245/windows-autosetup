@@ -3,17 +3,7 @@ setlocal enabledelayedexpansion
 
 set "FOUND=0"
 
-REM --- Scan Store Ubuntu ---
-for /d %%D in ("%LOCALAPPDATA%\Packages\CanonicalGroupLimited.*") do (
-    if exist "%%D\LocalState\ext4.vhdx" (
-        set "VHDX_PATH=%%D\LocalState\ext4.vhdx"
-        call :compact
-        set "FOUND=1"
-    )
-)
-
-REM --- Scan %LOCALAPPDATA%\wsl\*\ext4.vhdx ---
-for /d %%D in ("%LOCALAPPDATA%\wsl\*") do (
+for /d %%D in ("%USERPROFILE%\*") do (
     if exist "%%D\ext4.vhdx" (
         set "VHDX_PATH=%%D\ext4.vhdx"
         call :compact
